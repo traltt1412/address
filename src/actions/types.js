@@ -1,2 +1,2 @@
-export const FETCH_TODOS = 'FETCH_TODOS';
-export const FETCH_USER = 'FETCH_USER';
+export const FETCH_ADDRESS = 'FETCH_ADDRESS';
+export const FETCH_ADDRESS_BY_ID = 'FETCH_ADDRESS_BY_ID';

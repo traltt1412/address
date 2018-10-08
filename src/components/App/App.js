@@ -10,7 +10,8 @@ export default class App extends Component {
       <BrowserRouter>
         <div>
           <Route exact path='/' component={Listing} />
-          <Route path='/edit' component={Edit} />
+          <Route path='/edit/:id' component={Edit} />
+          <Route path='/add' component={Edit} />
         </div>
       </BrowserRouter>
     )
