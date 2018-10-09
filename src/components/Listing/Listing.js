@@ -11,9 +11,8 @@ class Listing extends Component {
   }
   
   renderAddress () {
-    
-    const { data } = this.props
-    const address = _.map(data, (value, key) => {
+    const { addressList } = this.props.data
+    const address = _.map(addressList, (value, key) => {
       return <AddressRow key={key} addressId={key} address={value} />
     })
 
@@ -21,7 +20,6 @@ class Listing extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="list-container">
         <table>
