@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import _ from "lodash"
-import * as actions from "../../actions";
+import * as addressActions from "../../store/actions/address";
 
 class Edit extends Component {
   state = {}
@@ -44,7 +44,7 @@ class Edit extends Component {
 
   initFormValue () {
     let formValue = {}
-    const address = this.props.data.address
+    const address = this.props.address.address
     if (address) {
       _.map(address, (value, key) => {
         formValue[key] = value
@@ -87,10 +87,10 @@ class Edit extends Component {
   }
 }
 
-const mapStateToProps = ({ data }) => {
+const mapStateToProps = ({ address }) => {
   return {
-    data
+    address
   }
 }
 
-export default connect(mapStateToProps, actions)(Edit)
+export default connect(mapStateToProps, addressActions)(Edit)

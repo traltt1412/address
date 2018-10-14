@@ -1,5 +1,5 @@
 
-import { addressRef } from "../config/firebase";
+import { addressRef } from "../../helpers/firebase";
 import { FETCH_ADDRESS, FETCH_ADDRESS_BY_ID } from "./types";
 
 export const addAddress = newAddress => async dispatch => {

@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
-import data from "./dataReducer";
+import address from "./address";
 
 export default combineReducers({
-  data
+  address
 });
