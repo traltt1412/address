@@ -7,10 +7,11 @@ export default (state = {}, action) => {
       state = { ...state, addressList: action.payload}
       break
     case FETCH_ADDRESS_BY_ID:
-      state = { ...state, address: action.payload}
+      state = { ...state, formData: action.payload}
       break
     default:
       break
   }
+  console.log(state)
   return state
 }

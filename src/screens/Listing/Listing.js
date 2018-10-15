@@ -8,7 +8,6 @@ import AddressRow from "./components/AddressRow/AddressRow"
 class Listing extends Component {
   componentWillMount() {
     this.props.fetchAddress();
-    console.log(this.props)
   }
   
   renderAddress () {

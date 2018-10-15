@@ -2,81 +2,69 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import _ from "lodash"
 import * as addressActions from "../../store/actions/address";
+import { address } from "ip";
 
 class Edit extends Component {
-  state = {}
+  state = {
+    formData: '',
+  }
 
   componentWillMount() {
     const id = this.props.match.params.id
-    this.props.fetchAddressById(id)
+    
+    if (id) {
+      this.setState({'isUpdating': true})
+      this.props.fetchAddressById(id)
+    }
   }
 
-  componentDidMount() {
-    this.initFormValue ()
-  }
+  handleInputChange = e => {
+    const name = e.target.name
+    const val = e.target.value
+    const formData = this.state.formData || {}
+    formData[name] = val
 
-  handleInputChange = event => {
+    this.setState ({
+      'formData': formData
+    })
   }
 
   handleFormSubmit = event => {
     event.preventDefault()
-    const formData = new FormData (event.target)
-    const newValue = this.getFormData (formData)
-    this.props.addAddress({ address: newValue })
-    this.setState({ formValue: "" })
-  }
-  updateAddress = event => {
-    event.preventDefault()
-    const id = this.props.match.params.id
-    const formData = new FormData (event.target)
-    const newValue = this.getFormData (formData)
-    this.props.updateAddress(id, { address: newValue })
-    this.setState({ formValue: "" })
-  }
+    const formData = this.state.formData
 
-  getFormData(data) {
-    const formData = {};
-    for (let key of data.keys()) {
-      formData[key] = data.get(key);
-    }
-    return formData
-  }
-
-  initFormValue () {
-    let formValue = {}
-    const address = this.props.address.address
-    if (address) {
-      _.map(address, (value, key) => {
-        formValue[key] = value
-      })
+    if (this.state.isUpdating) {
+      const id = this.props.match.params.id
+      this.props.updateAddress(id, formData)
+    } else {
+      this.props.addAddress(formData)
     }
 
-    return formValue
+    this.setState({ formData: "" })
   }
 
   render() {
-    const formValue = this.initFormValue ()
     return (
       <div className="list-container">
-        <form onSubmit={this.updateAddress}>
+        <form onSubmit={this.handleFormSubmit}>
           <div className="control-group">
-            <input name="streetName" onChange={this.handleInputChange} defaultValue={formValue.streetName || ''} type="text" />
+            <input name="streetName" onChange={this.handleInputChange} value={ this.state.formData.streetName || (this.props.formData && this.props.formData.streetName) || ''} type="text" />
           </div>
           <div className="control-group">
             <label>Ward</label>
-            <input name="ward" onChange={this.handleInputChange} defaultValue={formValue.ward || ''} type="text" />
+            <input name="ward" onChange={this.handleInputChange} value={ this.state.formData.ward || (this.props.formData && this.props.formData.ward) || ''} type="text" />
           </div>
           <div className="control-group">
             <label>District</label>
-            <input name="district" onChange={this.handleInputChange} defaultValue={formValue.district || ''} type="text" />
+            <input name="district" onChange={this.handleInputChange} value={ this.state.formData.district || (this.props.formData && this.props.formData.district) || ''} type="text" />
           </div>
           <div className="control-group">
             <label>City</label>
-            <input name="city" onChange={this.handleInputChange} defaultValue={formValue.city || ''} type="text" />
+            <input name="city" onChange={this.handleInputChange} value={ this.state.formData.city || (this.props.formData && this.props.formData.city) || ''} type="text" />
           </div>
           <div className="control-group">
             <label>Country</label>
-            <input name="country" onChange={this.handleInputChange} defaultValue={formValue.country || ''} type="text" />
+            <input name="country" onChange={this.handleInputChange} value={ this.state.formData.country || (this.props.formData && this.props.formData.country) || ''} type="text" />
           </div>
           <div className="control-group">
             <button>Add</button>
@@ -87,9 +75,9 @@ class Edit extends Component {
   }
 }
 
-const mapStateToProps = ({ address }) => {
+const mapStateToProps = ({address}) => {
   return {
-    address
+    'formData': address.formData
   }
 }
 

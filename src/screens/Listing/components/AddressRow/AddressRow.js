@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Link } from 'react-router-dom'
 
 export default class AddressRow extends Component {
   render () {
@@ -10,7 +11,7 @@ export default class AddressRow extends Component {
         <td>{ address.district }</td>
         <td>{ address.city }</td>
         <td>{ address.country }</td>
-        <td><a href={ '/edit/' + this.props.addressId }>Edit</a></td>
+        <td><Link to={ '/edit/' + this.props.addressId }>Edit</Link></td>
       </tr>
     )
   }

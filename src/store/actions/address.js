@@ -7,7 +7,7 @@ export const addAddress = newAddress => async dispatch => {
 }
 
 export const updateAddress = (id, address )=> async dispatch => {
-  addressRef.child('/' + id).update(address.address)
+  addressRef.child('/' + id).update(address)
 }
 
 export const fetchAddress = () => async dispatch => {
